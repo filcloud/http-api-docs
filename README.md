@@ -1,12 +1,6 @@
 # http-api-docs
 
-
-[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
-[![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
-[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-[![Build Status](https://travis-ci.com/ipfs/http-api-docs.svg?branch=master)](https://travis-ci.org/ipfs/http-api-docs)
-
-> A generator for go-ipfs API endpoints documentation.
+> A generator for go-filecoin API endpoints documentation.
 
 ## Table of Contents
 
@@ -34,7 +28,7 @@ After installing you can run:
 > http-api-docs
 ```
 
-This should spit out a Markdown document. This is exactly the `api.md` documentation at https://github.com/ipfs/docs/blob/master/content/reference/api/http.md, so you can redirect the output to just overwrite that file.
+This should spit out a Markdown document. This is exactly the `http.md` documentation at https://github.com/filcloud/http-api-docs/blob/master/http.md, so you can redirect the output to just overwrite that file.
 
 ## Captain
 
