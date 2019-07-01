@@ -7,13 +7,14 @@ import (
 	"sort"
 
 	jsondoc "github.com/Stebalien/go-json-doc"
-	cid "github.com/ipfs/go-cid"
-	config "github.com/ipfs/go-ipfs"
+	"github.com/filecoin-project/go-filecoin/commands"
+	"github.com/filecoin-project/go-filecoin/flags"
+	"github.com/ipfs/go-cid"
+	cmdkit "github.com/ipfs/go-ipfs-cmdkit"
 	cmds "github.com/ipfs/go-ipfs-cmds"
-	corecmds "github.com/ipfs/go-ipfs/core/commands"
 	peer "github.com/libp2p/go-libp2p-peer"
 	peerstore "github.com/libp2p/go-libp2p-peerstore"
-	multiaddr "github.com/multiformats/go-multiaddr"
+	"github.com/multiformats/go-multiaddr"
 )
 
 var JsondocGlossary = jsondoc.NewGlossary().
@@ -61,11 +62,11 @@ const APIPrefix = "/api/v0"
 
 // AllEndpoints gathers all the endpoints from go-ipfs.
 func AllEndpoints() []*Endpoint {
-	return Endpoints(APIPrefix, corecmds.Root)
+	return Endpoints(APIPrefix, commands.RootCmd)
 }
 
-func IPFSVersion() string {
-	return config.CurrentVersionNumber
+func FilecoinVersion() string {
+	return flags.Commit // TODO
 }
 
 // Endpoints receives a name and a go-ipfs command and returns the endpoints it
@@ -80,7 +81,7 @@ func Endpoints(name string, cmd *cmds.Command) (endpoints []*Endpoint) {
 	if !ignore { // Extract arguments, options...
 		for _, arg := range cmd.Arguments {
 			argType := "string"
-			if arg.Type == cmds.ArgFile {
+			if arg.Type == cmdkit.ArgFile {
 				argType = "file"
 			}
 			arguments = append(arguments, &Argument{

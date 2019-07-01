@@ -106,7 +106,7 @@ flag is the %s query parameter below:
 }
 `+"```\n",
 		time.Now().Format("2006-01-02"),
-		IPFSVersion(),
+		FilecoinVersion(),
 		"`--encoding=json`",
 		"`&encoding=json`")
 
