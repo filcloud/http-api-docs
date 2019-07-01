@@ -653,35 +653,6 @@ This endpoint returns a `text/plain` response body.
 
 ***
 
-### /api/v0/daemon
-
-Start a long-running daemon process
-
-
-#### Arguments
-
-  - `swarmlisten` [string]: multiaddress to listen on for filecoin network connections. Required: no.
-  - `swarmrelaypublic` [string]: public multiaddress for routing circuit relay traffic.  Necessary for relay nodes to provide this if they are not publically dialable. Required: no.
-  - `offline` [bool]: start the node without networking. Required: no.
-  - `elstdout` [bool]:  Required: no.
-  - `is-relay` [bool]: advertise and allow filecoin network traffic to be relayed through this node. Required: no.
-  - `block-time` [string]: time a node waits before trying to mine the next block. Default: "30s". Required: no.
-
-
-#### Response
-
-On success, the call to this endpoint will return with 200 and the following body:
-
-```json
-This endpoint returns a `text/plain` response body.
-```
-
-#### cURL Example
-
-`curl "http://localhost:5001/api/v0/daemon?swarmlisten=<value>&swarmrelaypublic=<value>&offline=<value>&elstdout=<value>&is-relay=<value>&block-time=30s"`
-
-***
-
 ### /api/v0/dag/get
 
 Get a DAG node by its CID
@@ -950,38 +921,6 @@ On success, the call to this endpoint will return with 200 and the following bod
 #### cURL Example
 
 `curl "http://localhost:5001/api/v0/id?format=<value>"`
-
-***
-
-### /api/v0/init
-
-Initialize a filecoin repo
-
-
-#### Arguments
-
-  - `genesisfile` [string]: path of file or HTTP(S) URL containing archive of genesis block DAG data. Required: no.
-  - `peerkeyfile` [string]: path of file containing key to use for new node's libp2p identity. Required: no.
-  - `with-miner` [string]: when set, creates a custom genesis block with a pre generated miner account, requires running the daemon using dev mode (--dev). Required: no.
-  - `sectordir` [string]: path of directory into which staged and sealed sectors will be written. Required: no.
-  - `default-address` [string]: when set, sets the daemons's default address to the provided address. Required: no.
-  - `auto-seal-interval-seconds` [uint]: when set to a number > 0, configures the daemon to check for and seal any staged sectors on an interval. Default: "120". Required: no.
-  - `devnet-test` [bool]: when set, populates config bootstrap addrs with the dns multiaddrs of the test devnet and other test devnet specific bootstrap parameters. Required: no.
-  - `devnet-nightly` [bool]: when set, populates config bootstrap addrs with the dns multiaddrs of the nightly devnet and other nightly devnet specific bootstrap parameters. Required: no.
-  - `devnet-user` [bool]: when set, populates config bootstrap addrs with the dns multiaddrs of the user devnet and other user devnet specific bootstrap parameters. Required: no.
-
-
-#### Response
-
-On success, the call to this endpoint will return with 200 and the following body:
-
-```json
-This endpoint returns a `text/plain` response body.
-```
-
-#### cURL Example
-
-`curl "http://localhost:5001/api/v0/init?genesisfile=<value>&peerkeyfile=<value>&with-miner=<value>&sectordir=<value>&default-address=<value>&auto-seal-interval-seconds=120&devnet-test=<value>&devnet-nightly=<value>&devnet-user=<value>"`
 
 ***
 
@@ -2597,33 +2536,6 @@ On success, the call to this endpoint will return with 200 and the following bod
 #### cURL Example
 
 `curl "http://localhost:5001/api/v0/swarm/peers?verbose=<value>&streams=<value>&latency=<value>"`
-
-***
-
-### /api/v0/version
-
-Show go-filecoin version information
-
-
-#### Arguments
-
-This endpoint takes no arguments.
-
-
-#### Response
-
-On success, the call to this endpoint will return with 200 and the following body:
-
-```json
-{
-  "Commit": "<string>"
-}
-
-```
-
-#### cURL Example
-
-`curl "http://localhost:5001/api/v0/version"`
 
 ***
 
