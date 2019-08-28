@@ -9,7 +9,7 @@ menu:
 <!-- TODO: Describe how to change ports and configure the API server -->
 <!-- TODO: Structure this around command groups (dag, object, files, etc.) -->
 
-<sup>Generated on 2019-07-01, from go-filecoin v.</sup>
+<sup>Generated on 2019-08-28, from go-filecoin v.</sup>
 
 When an Filecoin node is running as a daemon, it exposes an HTTP API that allows
 you to control the node and run the same commands you can from the command
@@ -359,34 +359,12 @@ On success, the call to this endpoint will return with 200 and the following bod
 [
   {
     "height": "<object>",
-    "messageReceipts": [
-      {
-        "exitCode": "<uint8>",
-        "gasAttoFIL": "<object>",
-        "return": [
-          "<base64-string>"
-        ]
-      }
-    ],
-    "messages": [
-      {
-        "meteredMessage": {
-          "gasLimit": "<object>",
-          "gasPrice": "<object>",
-          "message": {
-            "from": "<object>",
-            "method": "<string>",
-            "nonce": "<object>",
-            "params": "<base64-string>",
-            "to": "<object>",
-            "value": "<object>"
-          }
-        },
-        "signature": [
-          "<uint8>"
-        ]
-      }
-    ],
+    "messageReceipts": {
+      "/": "<cid-string>"
+    },
+    "messages": {
+      "/": "<cid-string>"
+    },
     "miner": "<object>",
     "nonce": "<object>",
     "parentWeight": "<object>",
@@ -564,6 +542,9 @@ On success, the call to this endpoint will return with 200 and the following bod
 {
   "Message": "<string>",
   "ProofInfo": {
+    "CommD": "<base64-string>",
+    "CommR": "<base64-string>",
+    "CommRStar": "<base64-string>",
     "CommitmentMessage": {
       "/": "<cid-string>"
     },
@@ -573,9 +554,6 @@ On success, the call to this endpoint will return with 200 and the following bod
   "ProposalCid": {
     "/": "<cid-string>"
   },
-  "Signature": [
-    "<uint8>"
-  ],
   "State": "<int>"
 }
 
@@ -605,6 +583,9 @@ On success, the call to this endpoint will return with 200 and the following bod
 {
   "Message": "<string>",
   "ProofInfo": {
+    "CommD": "<base64-string>",
+    "CommR": "<base64-string>",
+    "CommRStar": "<base64-string>",
     "CommitmentMessage": {
       "/": "<cid-string>"
     },
@@ -614,9 +595,6 @@ On success, the call to this endpoint will return with 200 and the following bod
   "ProposalCid": {
     "/": "<cid-string>"
   },
-  "Signature": [
-    "<uint8>"
-  ],
   "State": "<int>"
 }
 
@@ -625,6 +603,31 @@ On success, the call to this endpoint will return with 200 and the following bod
 #### cURL Example
 
 `curl "http://localhost:5001/api/v0/client/query-storage-deal?arg=<id>"`
+
+***
+
+### /api/v0/client/verify-storage-deal
+
+Verify a storage deal
+
+
+#### Arguments
+
+  - `arg` [string]: CID of deal to query Required: **yes**.
+
+
+#### Response
+
+On success, the call to this endpoint will return with 200 and the following body:
+
+```json
+{}
+
+```
+
+#### cURL Example
+
+`curl "http://localhost:5001/api/v0/client/verify-storage-deal?arg=<id>"`
 
 ***
 
@@ -966,7 +969,7 @@ Initialize a filecoin repo
   - `sectordir` [string]: path of directory into which staged and sealed sectors will be written. Required: no.
   - `default-address` [string]: when set, sets the daemons's default address to the provided address. Required: no.
   - `auto-seal-interval-seconds` [uint]: when set to a number > 0, configures the daemon to check for and seal any staged sectors on an interval. Default: "120". Required: no.
-  - `devnet-test` [bool]: when set, populates config bootstrap addrs with the dns multiaddrs of the test devnet and other test devnet specific bootstrap parameters. Required: no.
+  - `devnet-staging` [bool]: when set, populates config bootstrap addrs with the dns multiaddrs of the staging devnet and other staging devnet specific bootstrap parameters. Required: no.
   - `devnet-nightly` [bool]: when set, populates config bootstrap addrs with the dns multiaddrs of the nightly devnet and other nightly devnet specific bootstrap parameters. Required: no.
   - `devnet-user` [bool]: when set, populates config bootstrap addrs with the dns multiaddrs of the user devnet and other user devnet specific bootstrap parameters. Required: no.
 
@@ -981,7 +984,7 @@ This endpoint returns a `text/plain` response body.
 
 #### cURL Example
 
-`curl "http://localhost:5001/api/v0/init?genesisfile=<value>&peerkeyfile=<value>&with-miner=<value>&sectordir=<value>&default-address=<value>&auto-seal-interval-seconds=120&devnet-test=<value>&devnet-nightly=<value>&devnet-user=<value>"`
+`curl "http://localhost:5001/api/v0/init?genesisfile=<value>&peerkeyfile=<value>&with-miner=<value>&sectordir=<value>&default-address=<value>&auto-seal-interval-seconds=120&devnet-staging=<value>&devnet-nightly=<value>&devnet-user=<value>"`
 
 ***
 
@@ -1437,34 +1440,12 @@ On success, the call to this endpoint will return with 200 and the following bod
   "ChainMsg": {
     "Block": {
       "height": "<object>",
-      "messageReceipts": [
-        {
-          "exitCode": "<uint8>",
-          "gasAttoFIL": "<object>",
-          "return": [
-            "<base64-string>"
-          ]
-        }
-      ],
-      "messages": [
-        {
-          "meteredMessage": {
-            "gasLimit": "<object>",
-            "gasPrice": "<object>",
-            "message": {
-              "from": "<object>",
-              "method": "<string>",
-              "nonce": "<object>",
-              "params": "<base64-string>",
-              "to": "<object>",
-              "value": "<object>"
-            }
-          },
-          "signature": [
-            "<uint8>"
-          ]
-        }
-      ],
+      "messageReceipts": {
+        "/": "<cid-string>"
+      },
+      "messages": {
+        "/": "<cid-string>"
+      },
       "miner": "<object>",
       "nonce": "<object>",
       "parentWeight": "<object>",
@@ -1617,6 +1598,31 @@ On success, the call to this endpoint will return with 200 and the following bod
 
 ***
 
+### /api/v0/miner/collateral
+
+Get the active collateral of a miner
+
+
+#### Arguments
+
+  - `arg` [string]: The address of the miner Required: **yes**.
+
+
+#### Response
+
+On success, the call to this endpoint will return with 200 and the following body:
+
+```json
+"<object>"
+
+```
+
+#### cURL Example
+
+`curl "http://localhost:5001/api/v0/miner/collateral?arg=<miner>"`
+
+***
+
 ### /api/v0/miner/create
 
 Create a new file miner with <collateral> FIL
@@ -1692,12 +1698,51 @@ Get the power of a miner versus the total storage market power
 On success, the call to this endpoint will return with 200 and the following body:
 
 ```json
-This endpoint returns a `text/plain` response body.
+{
+  "Power": "<object>",
+  "Total": "<object>"
+}
+
 ```
 
 #### cURL Example
 
 `curl "http://localhost:5001/api/v0/miner/power?arg=<miner>"`
+
+***
+
+### /api/v0/miner/proving-period
+
+
+
+
+#### Arguments
+
+  - `arg` [string]: Miner address to get proving period for Required: **yes**.
+
+
+#### Response
+
+On success, the call to this endpoint will return with 200 and the following body:
+
+```json
+{
+  "End": "<object>",
+  "ProvingSet": {
+    "<string>": {
+      "CommD": "<array>",
+      "CommR": "<array>",
+      "CommRStar": "<array>"
+    }
+  },
+  "Start": "<object>"
+}
+
+```
+
+#### cURL Example
+
+`curl "http://localhost:5001/api/v0/miner/proving-period?arg=<miner>"`
 
 ***
 
@@ -1781,6 +1826,31 @@ On success, the call to this endpoint will return with 200 and the following bod
 
 ***
 
+### /api/v0/mining/address
+
+
+
+
+#### Arguments
+
+This endpoint takes no arguments.
+
+
+#### Response
+
+On success, the call to this endpoint will return with 200 and the following body:
+
+```json
+"<object>"
+
+```
+
+#### cURL Example
+
+`curl "http://localhost:5001/api/v0/mining/address"`
+
+***
+
 ### /api/v0/mining/once
 
 
@@ -1805,6 +1875,30 @@ On success, the call to this endpoint will return with 200 and the following bod
 #### cURL Example
 
 `curl "http://localhost:5001/api/v0/mining/once"`
+
+***
+
+### /api/v0/mining/seal-now
+
+Start sealing all staged sectors or create and seal a new sector
+
+
+#### Arguments
+
+This endpoint takes no arguments.
+
+
+#### Response
+
+On success, the call to this endpoint will return with 200 and the following body:
+
+```json
+This endpoint returns a `text/plain` response body.
+```
+
+#### cURL Example
+
+`curl "http://localhost:5001/api/v0/mining/seal-now"`
 
 ***
 
@@ -1849,7 +1943,25 @@ On success, the call to this endpoint will return with 200 and the following bod
 
 ```json
 {
-  "Active": "<bool>"
+  "active": "<bool>",
+  "collateral": "<object>",
+  "minerAddress": "<object>",
+  "minerPower": {
+    "Power": "<object>",
+    "Total": "<object>"
+  },
+  "owner": "<object>",
+  "provingPeriod": {
+    "End": "<object>",
+    "ProvingSet": {
+      "<string>": {
+        "CommD": "<array>",
+        "CommR": "<array>",
+        "CommRStar": "<array>"
+      }
+    },
+    "Start": "<object>"
+  }
 }
 
 ```
@@ -2366,7 +2478,7 @@ On success, the call to this endpoint will return with 200 and the following bod
 ```json
 {
   "Count": "<uint>",
-  "Time": "<duration-ns>"
+  "RTT": "<duration-ns>"
 }
 
 ```
@@ -2396,8 +2508,11 @@ On success, the call to this endpoint will return with 200 and the following bod
   "AutoSealInterval": "<uint>",
   "BlockTime": "<duration-ns>",
   "ProofsMode": "<int>",
-  "SupportedSectorSizes": [
-    "<object>"
+  "SupportedSectors": [
+    {
+      "MaxPieceSize": "<object>",
+      "Size": "<object>"
+    }
   ]
 }
 
@@ -2436,13 +2551,14 @@ This endpoint returns a `text/plain` response body.
 
 ### /api/v0/show/block
 
-Show a filecoin block by its CID
+Show a full filecoin block by its header CID
 
 
 #### Arguments
 
   - `arg` [string]: CID of block to show Required: **yes**.
   - `messages` [bool]: show messages in block. Required: no.
+  - `receipts` [bool]: show receipts in block. Required: no.
 
 
 #### Response
@@ -2451,17 +2567,30 @@ On success, the call to this endpoint will return with 200 and the following bod
 
 ```json
 {
-  "height": "<object>",
-  "messageReceipts": [
-    {
-      "exitCode": "<uint8>",
-      "gasAttoFIL": "<object>",
-      "return": [
-        "<base64-string>"
-      ]
-    }
-  ],
-  "messages": [
+  "Header": {
+    "height": "<object>",
+    "messageReceipts": {
+      "/": "<cid-string>"
+    },
+    "messages": {
+      "/": "<cid-string>"
+    },
+    "miner": "<object>",
+    "nonce": "<object>",
+    "parentWeight": "<object>",
+    "parents": "<object>",
+    "proof": [
+      "<uint8>"
+    ],
+    "stateRoot": {
+      "/": "<cid-string>"
+    },
+    "ticket": [
+      "<uint8>"
+    ],
+    "timestamp": "<object>"
+  },
+  "Messages": [
     {
       "meteredMessage": {
         "gasLimit": "<object>",
@@ -2480,6 +2609,48 @@ On success, the call to this endpoint will return with 200 and the following bod
       ]
     }
   ],
+  "Receipts": [
+    {
+      "exitCode": "<uint8>",
+      "gasAttoFIL": "<object>",
+      "return": [
+        "<base64-string>"
+      ]
+    }
+  ]
+}
+
+```
+
+#### cURL Example
+
+`curl "http://localhost:5001/api/v0/show/block?arg=<cid>&messages=<value>&receipts=<value>"`
+
+***
+
+### /api/v0/show/header
+
+Show a filecoin block header by its CID
+
+
+#### Arguments
+
+  - `arg` [string]: CID of block to show Required: **yes**.
+
+
+#### Response
+
+On success, the call to this endpoint will return with 200 and the following body:
+
+```json
+{
+  "height": "<object>",
+  "messageReceipts": {
+    "/": "<cid-string>"
+  },
+  "messages": {
+    "/": "<cid-string>"
+  },
   "miner": "<object>",
   "nonce": "<object>",
   "parentWeight": "<object>",
@@ -2500,7 +2671,83 @@ On success, the call to this endpoint will return with 200 and the following bod
 
 #### cURL Example
 
-`curl "http://localhost:5001/api/v0/show/block?arg=<cid>&messages=<value>"`
+`curl "http://localhost:5001/api/v0/show/header?arg=<cid>"`
+
+***
+
+### /api/v0/show/messages
+
+Show a filecoin message collection by its CID
+
+
+#### Arguments
+
+  - `arg` [string]: CID of message collection to show Required: **yes**.
+
+
+#### Response
+
+On success, the call to this endpoint will return with 200 and the following body:
+
+```json
+[
+  {
+    "meteredMessage": {
+      "gasLimit": "<object>",
+      "gasPrice": "<object>",
+      "message": {
+        "from": "<object>",
+        "method": "<string>",
+        "nonce": "<object>",
+        "params": "<base64-string>",
+        "to": "<object>",
+        "value": "<object>"
+      }
+    },
+    "signature": [
+      "<uint8>"
+    ]
+  }
+]
+
+```
+
+#### cURL Example
+
+`curl "http://localhost:5001/api/v0/show/messages?arg=<cid>"`
+
+***
+
+### /api/v0/show/receipts
+
+Show a filecoin receipt collection by its CID
+
+
+#### Arguments
+
+  - `arg` [string]: CID of receipt collection to show Required: **yes**.
+
+
+#### Response
+
+On success, the call to this endpoint will return with 200 and the following body:
+
+```json
+[
+  {
+    "exitCode": "<uint8>",
+    "gasAttoFIL": "<object>",
+    "return": [
+      "<base64-string>"
+    ]
+  }
+]
+
+```
+
+#### cURL Example
+
+`curl "http://localhost:5001/api/v0/show/receipts?arg=<cid>"`
 
 ***
 
